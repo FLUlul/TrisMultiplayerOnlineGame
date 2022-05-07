@@ -1,1 +1,17 @@
-dfgdfg
+on: push
+name: Produzione
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Carica nuovi file
+        uses: actions/checkout@v3
+      
+      - name: Sincronizza files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.server }}
+          username: ${{ secrets.username }}
+          password: ${{ secrets.password }}
+          server-dir: deploy/
